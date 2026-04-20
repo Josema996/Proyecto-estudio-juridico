@@ -20,7 +20,7 @@
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+    @apply bg-slate-950 text-slate-900 font-sans antialiased;
     /* Desactiva el bounce scroll en iOS — lo manejan los scrollables */
     overscroll-behavior: none;
     /* Fuente SF en iOS, Inter en el resto */

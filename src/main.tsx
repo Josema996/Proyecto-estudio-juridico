@@ -9,9 +9,11 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
-// Oculta el splash una vez que React montó
+// Oculta el splash cuando React terminó de pintar el primer frame real
 requestAnimationFrame(() => {
-  setTimeout(() => {
-    (window as Window & { __hideSplash?: () => void }).__hideSplash?.()
-  }, 800)
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      (window as Window & { __hideSplash?: () => void }).__hideSplash?.()
+    }, 300)
+  })
 })

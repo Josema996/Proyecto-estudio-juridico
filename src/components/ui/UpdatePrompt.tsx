@@ -8,8 +8,14 @@ export default function UpdatePrompt() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegistered(r) {
-      // Revisa actualizaciones cada 60 minutos mientras la app está abierta
-      if (r) setInterval(() => r.update(), 60 * 60 * 1000)
+      if (!r) return
+      // Revisa al montar
+      r.update()
+      // Revisa cada 60 minutos mientras la app está abierta
+      setInterval(() => r.update(), 60 * 60 * 1000)
+    },
+    onNeedRefresh() {
+      setVisible(true)
     },
   })
 
