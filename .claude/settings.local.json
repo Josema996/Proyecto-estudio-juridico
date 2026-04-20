@@ -10,7 +10,10 @@
       "WebSearch",
       "WebFetch(domain:www.nadcab.com)",
       "Bash(npx prisma *)",
-      "Bash(grep -E \"\\\\.\\(json|js|ts|yml|yaml\\)$\")"
+      "Bash(grep -E \"\\\\.\\(json|js|ts|yml|yaml\\)$\")",
+      "Bash(git config *)",
+      "Bash(node -e ' *)",
+      "Bash(node -e \"require\\('sharp'\\)\")"
     ]
   }
 }

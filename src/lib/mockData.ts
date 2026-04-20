@@ -54,12 +54,12 @@ const now = new Date()
 function daysFromNow(d: number) { return new Date(now.getTime() + d * 86400000).toISOString() }
 
 export const mockEventos: Evento[] = [
-  { id: 'e1', titulo: 'Audiencia preliminar - Rodríguez c/ Fernández SA', descripcion: 'Presentación de pruebas. Llevar peritaje médico.', tipo: 'audiencia', fecha_hora: daysFromNow(3), causa_id: 'ca1', creado_por: 'user-1', recordatorio_enviado: false, created_at: now.toISOString() },
-  { id: 'e2', titulo: 'Vencimiento contestación demanda - Amparo OSDE', descripcion: 'Plazo fatal para presentar contestación.', tipo: 'vencimiento', fecha_hora: daysFromNow(7), causa_id: 'ca2', creado_por: 'user-1', recordatorio_enviado: false, created_at: now.toISOString() },
-  { id: 'e3', titulo: 'Reunión con Carlos Méndez', descripcion: 'Actualización del estado del concurso preventivo.', tipo: 'reunion', fecha_hora: daysFromNow(1), causa_id: 'ca3', creado_por: 'user-1', recordatorio_enviado: false, created_at: now.toISOString() },
-  { id: 'e4', titulo: 'Audiencia de vista de causa - Sucesión Almada', descripcion: null, tipo: 'audiencia', fecha_hora: daysFromNow(14), causa_id: 'ca5', creado_por: 'user-1', recordatorio_enviado: false, created_at: now.toISOString() },
-  { id: 'e5', titulo: 'Presentación escrito de alegatos', descripcion: 'Laboral Suárez - alegatos finales.', tipo: 'vencimiento', fecha_hora: daysFromNow(-5), causa_id: 'ca4', creado_por: 'user-1', recordatorio_enviado: true, created_at: now.toISOString() },
-  { id: 'e6', titulo: 'Reunión con perito contador', descripcion: 'Revisión del informe pericial del concurso.', tipo: 'reunion', fecha_hora: daysFromNow(-2), causa_id: 'ca3', creado_por: 'user-1', recordatorio_enviado: true, created_at: now.toISOString() },
+  { id: 'e1', titulo: 'Audiencia preliminar - Rodríguez c/ Fernández SA', descripcion: 'Presentación de pruebas. Llevar peritaje médico.', tipo: 'audiencia', fecha_hora: daysFromNow(3), causa_id: 'ca1', creado_por: 'user-1', recordatorio_enviado: false, participantes_ids: ['user-1', 'user-2'], created_at: now.toISOString() },
+  { id: 'e2', titulo: 'Vencimiento contestación demanda - Amparo OSDE', descripcion: 'Plazo fatal para presentar contestación.', tipo: 'vencimiento', fecha_hora: daysFromNow(7), causa_id: 'ca2', creado_por: 'user-1', recordatorio_enviado: false, participantes_ids: ['user-2'], created_at: now.toISOString() },
+  { id: 'e3', titulo: 'Reunión con Carlos Méndez', descripcion: 'Actualización del estado del concurso preventivo.', tipo: 'reunion', fecha_hora: daysFromNow(1), causa_id: 'ca3', creado_por: 'user-1', recordatorio_enviado: false, participantes_ids: ['user-1', 'user-3'], created_at: now.toISOString() },
+  { id: 'e4', titulo: 'Audiencia de vista de causa - Sucesión Almada', descripcion: null, tipo: 'audiencia', fecha_hora: daysFromNow(14), causa_id: 'ca5', creado_por: 'user-1', recordatorio_enviado: false, participantes_ids: ['user-1'], created_at: now.toISOString() },
+  { id: 'e5', titulo: 'Presentación escrito de alegatos', descripcion: 'Laboral Suárez - alegatos finales.', tipo: 'vencimiento', fecha_hora: daysFromNow(-5), causa_id: 'ca4', creado_por: 'user-1', recordatorio_enviado: true, participantes_ids: ['user-3'], created_at: now.toISOString() },
+  { id: 'e6', titulo: 'Reunión con perito contador', descripcion: 'Revisión del informe pericial del concurso.', tipo: 'reunion', fecha_hora: daysFromNow(-2), causa_id: 'ca3', creado_por: 'user-1', recordatorio_enviado: true, participantes_ids: ['user-1', 'user-2', 'user-3'], created_at: now.toISOString() },
 ]
 
 export const mockHonorarios: Honorario[] = [

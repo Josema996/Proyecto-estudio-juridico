@@ -68,6 +68,7 @@ export interface Evento {
   causa_id: string | null
   creado_por: string | null
   recordatorio_enviado: boolean
+  participantes_ids: string[]
   created_at: string
   // joins
   causa?: Causa | null
