@@ -9,7 +9,8 @@
       "Bash(npm run *)",
       "WebSearch",
       "WebFetch(domain:www.nadcab.com)",
-      "Bash(npx prisma *)"
+      "Bash(npx prisma *)",
+      "Bash(grep -E \"\\\\.\\(json|js|ts|yml|yaml\\)$\")"
     ]
   }
 }
