@@ -75,8 +75,8 @@ export default function MasPage() {
       {isMobile && <MobileHeader title="Más" />}
 
       <div className={isMobile ? 'px-4 pt-5 space-y-5' : 'p-8'}>
-        {/* Perfil */}
-        <div className="bg-white dark:bg-slate-900 rounded-ios-xl border border-slate-100 dark:border-slate-800 shadow-card p-4 flex items-center gap-4">
+        {/* Perfil — clickeable */}
+        <Link to="/perfil" className="bg-white dark:bg-slate-900 rounded-ios-xl border border-slate-100 dark:border-slate-800 shadow-card p-4 flex items-center gap-4 active:bg-slate-50 dark:active:bg-slate-800 transition-colors">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary-400 to-indigo-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
             {profile?.full_name?.split(' ').map(w => w[0]).slice(0, 2).join('') ?? 'JG'}
           </div>
@@ -87,7 +87,8 @@ export default function MasPage() {
               {roleLabel[profile?.role ?? ''] ?? '—'}
             </span>
           </div>
-        </div>
+          <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-600 flex-shrink-0" />
+        </Link>
 
         {/* Módulos extra */}
         {secciones.map(s => (
