@@ -8,3 +8,10 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+
+// Oculta el splash una vez que React montó
+requestAnimationFrame(() => {
+  setTimeout(() => {
+    (window as Window & { __hideSplash?: () => void }).__hideSplash?.()
+  }, 800)
+})
