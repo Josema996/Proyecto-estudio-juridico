@@ -3,6 +3,7 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { ToastProvider } from '@/contexts/ToastContext'
 import AppLayout from '@/components/layout/AppLayout'
+import UpdatePrompt from '@/components/ui/UpdatePrompt'
 import LoginPage from '@/pages/LoginPage'
 import DashboardPage from '@/pages/DashboardPage'
 import ClientesPage from '@/pages/ClientesPage'
@@ -47,6 +48,7 @@ export default function App() {
         </Routes>
       </AuthProvider>
       </ToastProvider>
+      <UpdatePrompt />
       </ThemeProvider>
     </BrowserRouter>
   )
