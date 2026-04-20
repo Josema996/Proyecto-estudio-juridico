@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Safe area para iPhone notch / Dynamic Island / home indicator */
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
+  }
+
+  html {
+    /* Previene zoom al hacer tap en inputs (iOS) */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+    /* Desactiva el bounce scroll en iOS — lo manejan los scrollables */
+    overscroll-behavior: none;
+    /* Fuente SF en iOS, Inter en el resto */
+    font-family: -apple-system, 'Inter', system-ui, sans-serif;
+  }
+
+  * {
+    @apply box-border;
+    /* Evita selección de texto en elementos de UI táctil */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input, textarea, select {
+    /* HIG: sin zoom en focus en iOS (font-size mínimo 16px en inputs) */
+    font-size: max(16px, 1em);
+  }
+}
+
+@layer utilities {
+  /* Scrollbar fino para listas largas en desktop */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar { width: 5px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { @apply bg-slate-200 rounded-full; }
+
+  /* Safe area helpers */
+  .pt-safe  { padding-top:    env(safe-area-inset-top); }
+  .pb-safe  { padding-bottom: env(safe-area-inset-bottom); }
+  .pl-safe  { padding-left:   env(safe-area-inset-left); }
+  .pr-safe  { padding-right:  env(safe-area-inset-right); }
+
+  /* Touch target mínimo HIG: 44×44pt */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  }
+
+  /* Scroll momentum nativo en iOS */
+  .scroll-ios {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+  }
+
+  /* Deshabilitar selección en UI elements */
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Efectos de blur para glassmorphism (tab bar, headers) */
+  .glass {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  /* Row separador al estilo iOS (inset) */
+  .ios-separator {
+    @apply border-b border-slate-100;
+    margin-left: 16px;
+  }
+}
+
+/* Animaciones respetan prefers-reduced-motion (HIG accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
