@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'biometric_credential_id'
+const STORAGE_RAW_KEY = 'biometric_credential_raw'
 
 export function isBiometricAvailable(): boolean {
   return (
@@ -17,7 +18,24 @@ export async function checkBiometricSupport(): Promise<boolean> {
 }
 
 export function hasBiometricRegistered(): boolean {
-  return !!localStorage.getItem(STORAGE_KEY)
+  // Verifica que haya un raw ID válido (no solo el string ID)
+  return !!localStorage.getItem(STORAGE_RAW_KEY)
+}
+
+function bufferToBase64url(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer)
+  let str = ''
+  for (const b of bytes) str += String.fromCharCode(b)
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
+}
+
+function base64urlToBuffer(base64url: string): ArrayBuffer {
+  const base64 = base64url.replace(/-/g, '+').replace(/_/g, '/')
+  const padded = base64.padEnd(base64.length + (4 - (base64.length % 4)) % 4, '=')
+  const binary = atob(padded)
+  const buffer = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) buffer[i] = binary.charCodeAt(i)
+  return buffer.buffer
 }
 
 export async function registerBiometric(userId: string): Promise<boolean> {
@@ -45,7 +63,11 @@ export async function registerBiometric(userId: string): Promise<boolean> {
     }) as PublicKeyCredential | null
 
     if (!credential) return false
+
+    // Guardamos el rawId como base64url (confiable para re-usar)
+    const rawId = bufferToBase64url(credential.rawId)
     localStorage.setItem(STORAGE_KEY, credential.id)
+    localStorage.setItem(STORAGE_RAW_KEY, rawId)
     return true
   } catch {
     return false
@@ -53,26 +75,16 @@ export async function registerBiometric(userId: string): Promise<boolean> {
 }
 
 export async function authenticateWithBiometric(): Promise<boolean> {
-  const credentialId = localStorage.getItem(STORAGE_KEY)
-  if (!credentialId) return false
+  const rawId = localStorage.getItem(STORAGE_RAW_KEY)
+  if (!rawId) return false
 
   try {
     const challenge = crypto.getRandomValues(new Uint8Array(32))
-
-    function base64urlToBuffer(base64url: string): ArrayBuffer {
-      const base64 = base64url.replace(/-/g, '+').replace(/_/g, '/')
-      const padded = base64.padEnd(base64.length + (4 - (base64.length % 4)) % 4, '=')
-      const binary = atob(padded)
-      const buffer = new Uint8Array(binary.length)
-      for (let i = 0; i < binary.length; i++) buffer[i] = binary.charCodeAt(i)
-      return buffer.buffer
-    }
-
     const assertion = await navigator.credentials.get({
       publicKey: {
         challenge,
         allowCredentials: [{
-          id: base64urlToBuffer(credentialId),
+          id: base64urlToBuffer(rawId),
           type: 'public-key',
           transports: ['internal'],
         }],
@@ -80,7 +92,6 @@ export async function authenticateWithBiometric(): Promise<boolean> {
         timeout: 60000,
       },
     })
-
     return !!assertion
   } catch {
     return false
@@ -89,4 +100,5 @@ export async function authenticateWithBiometric(): Promise<boolean> {
 
 export function removeBiometric(): void {
   localStorage.removeItem(STORAGE_KEY)
+  localStorage.removeItem(STORAGE_RAW_KEY)
 }
