@@ -14,6 +14,7 @@ import AgendaPage from '@/pages/AgendaPage'
 import DocumentosPage from '@/pages/DocumentosPage'
 import HonorariosPage from '@/pages/HonorariosPage'
 import MasPage from '@/pages/MasPage'
+import MiPerfilPage from '@/pages/MiPerfilPage'
 import EquipoPage from '@/pages/EquipoPage'
 import PerfilAbogadoPage from '@/pages/PerfilAbogadoPage'
 import TareasPage from '@/pages/TareasPage'
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/tareas" element={<TareasPage />} />
             <Route path="/planillas" element={<PlanillasPage />} />
             <Route path="/mas" element={<MasPage />} />
+            <Route path="/perfil" element={<MiPerfilPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

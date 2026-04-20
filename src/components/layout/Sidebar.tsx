@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   Scale, Users, FolderOpen, Calendar, FileText,
   DollarSign, LogOut, LayoutDashboard, ChevronRight,
@@ -41,6 +41,7 @@ function Avatar({ name }: { name: string }) {
 export default function Sidebar() {
   const { profile, signOut } = useAuth()
   const { theme, toggleTheme } = useTheme()
+  const navigate = useNavigate()
   const [confirmLogout, setConfirmLogout] = useState(false)
   const name = profile?.full_name ?? profile?.email ?? '?'
 
@@ -87,14 +88,16 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="px-3 py-4 border-t border-slate-800 space-y-1">
-        {/* Usuario */}
-        <div className="flex items-center gap-3 px-2 py-2 rounded-lg">
+        {/* Usuario — clickeable → Mi perfil */}
+        <button onClick={() => navigate('/perfil')}
+          className="flex items-center gap-3 px-2 py-2 rounded-lg w-full hover:bg-slate-800 transition-colors text-left group">
           <Avatar name={name} />
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-slate-200 truncate leading-none">{name}</p>
+            <p className="text-sm font-medium text-slate-200 truncate leading-none group-hover:text-white transition-colors">{name}</p>
             <p className="text-xs text-slate-500 mt-0.5">{roleLabel[profile?.role ?? ''] ?? '—'}</p>
           </div>
-        </div>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-400 transition-colors flex-shrink-0" />
+        </button>
 
         {/* Toggle tema */}
         <button

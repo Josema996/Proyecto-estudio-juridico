@@ -146,7 +146,7 @@ export default function LoginPage() {
 
           <div className="w-full max-w-sm mx-auto space-y-5">
             <div className="animate-enter-bottom" style={delay(120)}>
-              <h2 className="text-xl font-bold text-white mb-0.5">Bienvenido</h2>
+              <h2 className="text-xl font-bold text-white mb-0.5">Bienvenidos</h2>
               <p className="text-slate-400 text-sm">Ingresá con tus credenciales</p>
             </div>
 
